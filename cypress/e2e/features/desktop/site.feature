@@ -62,7 +62,7 @@ Feature: Telnyx website desktop customer journeys
     When I visit the "/pricing" page
     Then the main heading should include "Pay for what you use"
     And the page should have a link to "/pricing/elastic-sip"
-    When I follow a visible link to "/pricing/elastic-sip"
+    When I select the SIP Trunking pricing card
     Then the current path should be "/pricing/elastic-sip"
     And the main heading should include "SIP Trunking Pricing"
     And the page should contain the text "$0.0032"

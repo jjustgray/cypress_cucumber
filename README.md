@@ -20,7 +20,7 @@ The desktop suite uses `cypress.config.js` at 1440 × 900. The separate `cypress
 
 Cypress video recording is disabled. A screenshot is captured only when a test fails. `npm run report` generates the Cucumber report and a landing page with failed-test screenshots in `cypress/reports/html`.
 
-The site currently throws an uncaught error from its third-party OneTrust `otBannerSdk.js` script because `TenantFeatures` is undefined. Since these cases do not test cookie consent, the suite stubs only that script; application exceptions remain enabled. The live pricing page also contains desktop-width content that expands the document beyond the mobile viewport. Mobile scenarios verify that key headings and pricing content remain accessible rather than asserting the entire page has no overflow.
+The site currently throws an uncaught error from its third-party OneTrust scripts (including `otBannerSdk.js`, where `TenantFeatures` is undefined). Since these cases do not test cookie consent, the suite stubs JavaScript assets only from OneTrust's CDN; application exceptions remain enabled. The live pricing page also contains desktop-width content that expands the document beyond the mobile viewport. Mobile scenarios verify that key headings and pricing content remain accessible rather than asserting the entire page has no overflow.
 
 ## Test plan
 

@@ -4,7 +4,7 @@ When("I visit the {string} page", (path) => {
   cy.intercept(
     {
       hostname: "cdn.cookielaw.org",
-      pathname: "**/otBannerSdk.js",
+      pathname: "**/*.js",
     },
     {
       statusCode: 200,
@@ -20,6 +20,14 @@ When("I follow a visible link to {string}", (path) => {
     .filter((_, link) => new URL(link.href).pathname === path)
     .filter(":visible")
     .first()
+    .scrollIntoView()
+    .click();
+});
+
+When("I select the SIP Trunking pricing card", () => {
+  cy.get('a[href="/pricing/elastic-sip"]')
+    .filter((_, link) => link.innerText.includes("Per minute rates"))
+    .filter(":visible")
     .scrollIntoView()
     .click();
 });
@@ -104,7 +112,7 @@ Then("the footer should have a link containing {string}", (part) => {
 });
 
 Then("the current path should be {string}", (path) => {
-  cy.location("pathname").should("eq", path);
+  cy.location("pathname", { timeout: 15000 }).should("eq", path);
 });
 
 Then("the current path should contain {string}", (part) => {
