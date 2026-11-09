@@ -1,6 +1,6 @@
 # Telnyx Cypress + Cucumber E2E
 
-Automated smoke coverage for the public [Telnyx website](https://telnyx.com), split into 10 desktop and 5 mobile scenarios. The suite does not submit signup or sales forms or authenticate to a Telnyx account.
+Automated end-to-end customer journeys for the public [Telnyx website](https://telnyx.com), split into 10 desktop and 5 mobile scenarios. Scenarios exercise multi-page navigation, in-page anchors, pricing sections, and the interactive inference estimator. The suite does not submit signup or sales forms or authenticate to a Telnyx account.
 
 ## Requirements
 
@@ -16,11 +16,11 @@ npm run test:mobile
 npm run report
 ```
 
-The desktop suite uses `cypress.config.js`. The separate `cypress.mobile.config.js` runs only the five mobile cases at 390 × 844. Both use `https://telnyx.com` by default; override the target with `CYPRESS_BASE_URL=https://your-test-host.example`.
+The desktop suite uses `cypress.config.js` at 1440 × 900. The separate `cypress.mobile.config.js` runs only the five mobile cases at 390 × 844. Both use `https://telnyx.com` by default; override the target with `CYPRESS_BASE_URL=https://your-test-host.example`.
 
 Cypress video recording is disabled. A screenshot is captured only when a test fails. `npm run report` generates the Cucumber report and a landing page with failed-test screenshots in `cypress/reports/html`.
 
-The site currently throws an uncaught error from its third-party OneTrust `otBannerSdk.js` script because `TenantFeatures` is undefined. Since these cases do not test cookie consent, the suite stubs only that script; application exceptions remain enabled. The live pricing page also contains desktop-width content that expands the document beyond the mobile viewport. The mobile smoke case checks that the heading and signup CTA remain accessible rather than asserting the whole page has no overflow.
+The site currently throws an uncaught error from its third-party OneTrust `otBannerSdk.js` script because `TenantFeatures` is undefined. Since these cases do not test cookie consent, the suite stubs only that script; application exceptions remain enabled. The live pricing page also contains desktop-width content that expands the document beyond the mobile viewport. Mobile scenarios verify that key headings and pricing content remain accessible rather than asserting the entire page has no overflow.
 
 ## Test plan
 

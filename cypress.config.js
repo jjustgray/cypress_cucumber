@@ -11,6 +11,8 @@ module.exports = defineConfig({
   video: false,
   screenshotOnRunFailure: true,
   screenshotsFolder: "cypress/screenshots/desktop",
+  viewportWidth: 1440,
+  viewportHeight: 900,
   e2e: {
     baseUrl: process.env.CYPRESS_BASE_URL || "https://telnyx.com",
     specPattern: "cypress/e2e/features/desktop/*.feature",
