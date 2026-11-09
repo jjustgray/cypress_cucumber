@@ -1,0 +1,19 @@
+{
+  "name": "telnyx-cypress-cucumber",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Desktop and mobile E2E tests for the public Telnyx website",
+  "scripts": {
+    "test:desktop": "node scripts/run-cypress.js desktop",
+    "test:mobile": "node scripts/run-cypress.js mobile",
+    "test:e2e": "npm run test:desktop && npm run test:mobile",
+    "report": "node scripts/generate-report.js",
+    "plan": "python scripts/create-test-plan.py"
+  },
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^28.0.1",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.8",
+    "cypress": "^16.2.1",
+    "multiple-cucumber-html-reporter": "^4.6.0"
+  }
+}
