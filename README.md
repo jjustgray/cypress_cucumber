@@ -30,4 +30,4 @@ Open [Telnyx_Test_Plan.xlsx](./Telnyx_Test_Plan.xlsx) for the 15-case matrix and
 
 `.github/workflows/e2e.yml` runs desktop and mobile tests on pushes and pull requests to `main`, creates a report even when tests fail, and deploys the report to GitHub Pages. The workflow fails after report deployment when E2E tests fail.
 
-For the first Pages deployment, enable **Settings → Pages → Build and deployment → GitHub Actions**. The report URL is exposed by the `deploy-report` job.
+The workflow enables GitHub Pages through `configure-pages` when needed. If repository policy blocks that permission, set **Settings → Pages → Build and deployment → GitHub Actions**. The report URL is exposed by the `deploy-report` job.
