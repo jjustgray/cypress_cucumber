@@ -4,9 +4,9 @@ Feature: Telnyx website desktop experience
     When I visit the "/" page
     Then the main heading should include "Infrastructure for real-time agents"
 
-  Scenario: Homepage start-building CTA leads to sign up
+  Scenario: Homepage includes the sign-up destination
     When I visit the "/" page
-    Then the page should have a link to "/sign-up"
+    Then the page should include a link to "/sign-up"
 
   Scenario: Homepage footer includes the Telnyx LinkedIn profile
     When I visit the "/" page

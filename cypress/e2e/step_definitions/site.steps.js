@@ -1,11 +1,17 @@
 const { When, Then } = require("@badeball/cypress-cucumber-preprocessor");
 
 When("I visit the {string} page", (path) => {
-  cy.intercept("https://cdn.cookielaw.org/scripttemplates/**/otBannerSdk.js", {
-    statusCode: 200,
-    headers: { "content-type": "application/javascript" },
-    body: "void 0;",
-  });
+  cy.intercept(
+    {
+      hostname: "cdn.cookielaw.org",
+      pathname: "**/otBannerSdk.js",
+    },
+    {
+      statusCode: 200,
+      headers: { "content-type": "application/javascript" },
+      body: "void 0;",
+    },
+  );
   cy.visit(path);
 });
 
@@ -33,6 +39,12 @@ Then("the page should have a link to {string}", (path) => {
   cy.get("a")
     .filter((_, link) => new URL(link.href).pathname === path)
     .filter(":visible")
+    .should("exist");
+});
+
+Then("the page should include a link to {string}", (path) => {
+  cy.get("a")
+    .filter((_, link) => new URL(link.href).pathname === path)
     .should("exist");
 });
 

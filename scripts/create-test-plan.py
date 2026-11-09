@@ -8,7 +8,7 @@ OUTPUT = ROOT / "Telnyx_Test_Plan.xlsx"
 
 cases = [
     ["TC-01", "Desktop", "Homepage", "Homepage primary message", "Open https://telnyx.com.", "The page loads and its main heading contains “Infrastructure for real-time agents”.", "High"],
-    ["TC-02", "Desktop", "Homepage", "Start-building CTA destination", "Open the homepage and inspect its visible primary CTA link.", "A visible link targets /sign-up.", "High"],
+    ["TC-02", "Desktop", "Homepage", "Sign-up link destination", "Open the homepage and inspect its links.", "A link targets /sign-up.", "High"],
     ["TC-03", "Desktop", "Footer", "LinkedIn profile link", "Open the homepage and inspect its footer links.", "A visible link points to linkedin.com/company/telnyx.", "Low"],
     ["TC-04", "Desktop", "Products", "Products overview content", "Open /products.", "The page loads and its main heading contains “Everything you need”.", "Medium"],
     ["TC-05", "Desktop", "Pricing", "Pricing overview content", "Open /pricing.", "The page loads and its main heading contains “Pay for what you use”.", "High"],
