@@ -1,43 +1,28 @@
 const { When, Then } = require("@badeball/cypress-cucumber-preprocessor");
+const site = require("../../support/site-helpers");
 
 When("I visit the {string} page", (path) => {
-  cy.intercept(
-    {
-      hostname: "cdn.cookielaw.org",
-      pathname: "**/*.js",
-    },
-    {
-      statusCode: 200,
-      headers: { "content-type": "application/javascript" },
-      body: "void 0;",
-    },
-  );
-  cy.visit(path);
+  site.visit(path);
 });
 
 When("I follow a visible link to {string}", (path) => {
-  cy.get("a[href]")
-    .filter((_, link) => new URL(link.href).pathname === path)
-    .filter(":visible")
-    .first()
-    .scrollIntoView()
-    .click();
+  site.followLink(path);
 });
 
 When("I select the SIP Trunking pricing card", () => {
-  cy.get('a[href="/pricing/elastic-sip"]')
+  site
+    .findLink("/pricing/elastic-sip")
     .filter((_, link) => link.innerText.includes("Per minute rates"))
-    .filter(":visible")
     .scrollIntoView()
     .click();
 });
 
 When("I follow the in-page link to {string}", (hash) => {
-  cy.get(`a[href="${hash}"]`).filter(":visible").first().click();
+  site.followAnchor(hash);
 });
 
 When("I scroll to the heading {string}", (text) => {
-  cy.contains("h1, h2, h3", text).first().scrollIntoView();
+  site.scrollToHeading(text);
 });
 
 When("I scroll to the site footer", () => {
@@ -69,13 +54,7 @@ When("I change the input named {string} to {string}", (name, value) => {
 });
 
 When("I record the displayed inference estimate", () => {
-  cy.get("body")
-    .invoke("text")
-    .then((text) => {
-      const estimate = text.match(/ESTIMATED COST\s*\$([\d,.]+)/i);
-      expect(estimate, "displayed monthly estimate").to.not.be.null;
-      cy.wrap(Number(estimate[1].replace(/,/g, ""))).as("initialEstimate");
-    });
+  site.estimate().then((value) => cy.wrap(value).as("initialEstimate"));
 });
 
 When("I choose the service tier {string}", (tier) => {
@@ -83,32 +62,27 @@ When("I choose the service tier {string}", (tier) => {
 });
 
 Then("the main heading should include {string}", (text) => {
-  cy.get("h1").first().should("exist").and("contain.text", text);
+  site.assertHeading(text);
 });
 
 Then("the main heading should be visible", () => {
-  cy.get("h1").first().should("be.visible");
+  site.assertHeadingVisible();
 });
 
 Then("the page should have a link to {string}", (path) => {
-  cy.get("a")
-    .filter((_, link) => new URL(link.href).pathname === path)
-    .filter(":visible")
-    .should("exist");
+  site.assertLink(path);
 });
 
 Then("the page should include a link to {string}", (path) => {
-  cy.get("a")
-    .filter((_, link) => new URL(link.href).pathname === path)
-    .should("exist");
+  site.assertLink(path, false);
 });
 
 Then("the page should have a link containing {string}", (part) => {
-  cy.get(`a[href*="${part}"]`).filter(":visible").should("exist");
+  site.assertLinkContaining(part);
 });
 
 Then("the footer should have a link containing {string}", (part) => {
-  cy.get(`footer a[href*="${part}"]`).filter(":visible").should("exist");
+  site.assertLinkContaining(part, "footer");
 });
 
 Then("the current path should be {string}", (path) => {
@@ -128,20 +102,12 @@ Then("the heading {string} should be visible", (text) => {
 });
 
 Then("the page should contain the text {string}", (text) => {
-  cy.contains("body", text).should("exist");
+  site.assertText(text);
 });
 
 Then("the displayed estimate should be higher than before", () => {
   cy.get("@initialEstimate").then((initialEstimate) => {
-    cy.get("body")
-      .invoke("text")
-      .should((text) => {
-        const estimate = text.match(/ESTIMATED COST\s*\$([\d,.]+)/i);
-        expect(estimate, "updated monthly estimate").to.not.be.null;
-        expect(Number(estimate[1].replace(/,/g, ""))).to.be.greaterThan(
-          initialEstimate,
-        );
-      });
+    site.estimate().should("be.greaterThan", initialEstimate);
   });
 });
 
@@ -174,14 +140,5 @@ Then("the mobile menu should be collapsed", () => {
 });
 
 Then("the main heading should fit within the mobile viewport", () => {
-  cy.get("h1")
-    .first()
-    .should("be.visible")
-    .then(($heading) => {
-      const bounds = $heading[0].getBoundingClientRect();
-      expect(bounds.left).to.be.at.least(0);
-      expect(bounds.right).to.be.at.most(
-        $heading[0].ownerDocument.documentElement.clientWidth,
-      );
-    });
+  site.assertHeadingFitsViewport();
 });
