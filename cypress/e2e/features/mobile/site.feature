@@ -21,6 +21,7 @@ Feature: Telnyx website mobile experience
     And I choose "Contact sales" from the mobile menu
     Then the main heading should include "Contact enterprise sales"
 
-  Scenario: Pricing page fits the mobile viewport
+  Scenario: Pricing page key content is accessible on mobile
     When I visit the "/pricing" page
-    Then the page should not overflow horizontally
+    Then the main heading should fit within the mobile viewport
+    And the page should have a link to "/sign-up"

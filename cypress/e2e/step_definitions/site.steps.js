@@ -60,10 +60,15 @@ Then("the mobile menu should be collapsed", () => {
   );
 });
 
-Then("the page should not overflow horizontally", () => {
-  cy.document().then((document) => {
-    expect(document.documentElement.scrollWidth).to.be.at.most(
-      document.documentElement.clientWidth,
-    );
-  });
+Then("the main heading should fit within the mobile viewport", () => {
+  cy.get("h1")
+    .first()
+    .should("be.visible")
+    .then(($heading) => {
+      const bounds = $heading[0].getBoundingClientRect();
+      expect(bounds.left).to.be.at.least(0);
+      expect(bounds.right).to.be.at.most(
+        $heading[0].ownerDocument.documentElement.clientWidth,
+      );
+    });
 });

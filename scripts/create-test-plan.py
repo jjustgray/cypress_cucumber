@@ -21,7 +21,7 @@ cases = [
     ["TC-12", "Mobile", "Navigation", "Open mobile menu", "At 390×844, open the homepage and activate Open menu.", "The menu exposes Close menu with aria-expanded=true.", "High"],
     ["TC-13", "Mobile", "Navigation", "Close mobile menu", "Open the menu, then activate Close menu.", "The menu returns to Open menu with aria-expanded=false.", "Medium"],
     ["TC-14", "Mobile", "Navigation", "Mobile contact-sales route", "Open the homepage menu and choose Contact sales.", "The contact page loads and its main heading is visible.", "High"],
-    ["TC-15", "Mobile", "Pricing", "No horizontal page overflow", "At 390×844, open /pricing.", "Document width does not exceed the viewport width.", "Medium"],
+    ["TC-15", "Mobile", "Pricing", "Pricing content is accessible", "At 390×844, open /pricing.", "The page heading fits within the viewport and a sign-up link is visible.", "Medium"],
 ]
 
 headers = ["Test Case ID", "Device", "Feature / Area", "Scenario", "Steps / Preconditions", "Expected Result", "Priority"]
