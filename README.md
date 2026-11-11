@@ -26,7 +26,7 @@ The site currently throws an uncaught error from its third-party OneTrust script
 
 ## Test plan
 
-Open [Telnyx_Test_Plan.xlsx](./Telnyx_Test_Plan.xlsx) for the 15-case matrix and one-week submission schedule. Regenerate it with `npm run plan`.
+The ready-made [Telnyx_Test_Plan.xlsx](./Telnyx_Test_Plan.xlsx) is included in the repository and contains the 15-case matrix plus the one-week submission schedule.
 
 ## GitHub Actions and Pages
 
