@@ -13,9 +13,19 @@ module.exports = defineConfig({
   screenshotsFolder: "cypress/screenshots/desktop",
   viewportWidth: 1440,
   viewportHeight: 900,
+  defaultCommandTimeout: 10000,
+  pageLoadTimeout: 60000,
+  retries: {
+    runMode: 1,
+  },
+  expose: {
+    tags: process.env.CYPRESS_TAGS || "@desktop",
+    filterSpecs: true,
+    omitFiltered: true,
+  },
   e2e: {
     baseUrl: process.env.CYPRESS_BASE_URL || "https://telnyx.com",
-    specPattern: "cypress/e2e/features/desktop/*.feature",
+    specPattern: "cypress/e2e/features/*.feature",
     async setupNodeEvents(on, config) {
       await addCucumberPreprocessorPlugin(on, config);
       on(

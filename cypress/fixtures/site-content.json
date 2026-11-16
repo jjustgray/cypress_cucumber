@@ -1,0 +1,37 @@
+{
+  "homepage": {
+    "heroHeading": "Infrastructure for real-time agents",
+    "inferenceSectionHeading": "Inference infrastructure that scales with you",
+    "inferencePricingLink": "View pricing model",
+    "inferencePricingHeading": "Inference Pricing"
+  },
+  "products": {
+    "voiceApiHeading": "Voice API",
+    "voiceApiMetrics": ["140+", "25M+", "10M+"]
+  },
+  "pricing": {
+    "plans": [
+      { "name": "Pay as you go", "minimum": "$0" },
+      { "name": "Growth", "minimum": "$2,000" },
+      { "name": "Enterprise", "minimum": "$5,000" }
+    ],
+    "sipHeading": "SIP Trunking Pricing",
+    "payAsYouGoHeading": "Pay as you go for United States",
+    "outboundHeading": "Make outbound calls",
+    "outboundRate": "Starting at $0.005 per minute",
+    "inboundHeading": "Receive inbound calls",
+    "inboundRate": "Starting at $0.0032 per minute",
+    "channelHeading": "Inbound channel pricing",
+    "channelRate": "$12 per month"
+  },
+  "sales": {
+    "heading": "Contact enterprise sales",
+    "responseTime": "Enterprise enquiries are answered within one business day."
+  },
+  "resources": {
+    "releaseNotesFilter": "Filter by product"
+  },
+  "inferenceCalculator": {
+    "estimateLabel": "ESTIMATED COST"
+  }
+}

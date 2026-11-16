@@ -14,7 +14,15 @@ if (!Object.hasOwn(configs, device)) {
 }
 
 const projectRoot = path.resolve(__dirname, "..");
-const deviceReport = path.join(
+const deviceReportDirectory = path.join(
+  projectRoot,
+  "cypress",
+  "reports",
+  "cucumber-json",
+  device,
+);
+const deviceReport = path.join(deviceReportDirectory, `${device}.json`);
+const legacyDeviceReport = path.join(
   projectRoot,
   "cypress",
   "reports",
@@ -27,19 +35,24 @@ const deviceScreenshots = path.join(
   "screenshots",
   device,
 );
-fs.rmSync(deviceReport, { force: true });
+fs.rmSync(deviceReportDirectory, { recursive: true, force: true });
+fs.rmSync(legacyDeviceReport, { force: true });
 fs.rmSync(deviceScreenshots, { recursive: true, force: true });
 fs.rmSync(path.join(projectRoot, "cucumber-report.json"), { force: true });
-const result = spawnSync(
-  process.execPath,
-  [
-    path.join(projectRoot, "node_modules", "cypress", "bin", "cypress"),
-    "run",
-    "--config-file",
-    configs[device],
-  ],
-  { cwd: projectRoot, env: process.env, stdio: "inherit" },
-);
+const cypressArgs = [
+  path.join(projectRoot, "node_modules", "cypress", "bin", "cypress"),
+  "run",
+  "--config-file",
+  configs[device],
+];
+if (process.env.E2E_BROWSER) {
+  cypressArgs.push("--browser", process.env.E2E_BROWSER);
+}
+const result = spawnSync(process.execPath, cypressArgs, {
+  cwd: projectRoot,
+  env: process.env,
+  stdio: "inherit",
+});
 
 if (result.error) {
   throw result.error;

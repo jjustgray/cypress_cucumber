@@ -17,6 +17,8 @@ concurrency:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      E2E_BROWSER: chrome
     outputs:
       tests_passed: ${{ steps.result.outputs.tests_passed }}
       report_ready: ${{ steps.result.outputs.report_ready }}
@@ -30,8 +32,19 @@ jobs:
           node-version: 22
           cache: npm
 
+      - name: Cache Cypress binary
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('package-lock.json') }}
+
       - name: Install dependencies
         run: npm ci
+
+      - name: Record Chrome version
+        run: |
+          version="$(google-chrome --version | sed -E 's/^Google Chrome ([^ ]+).*/\1/')"
+          echo "E2E_BROWSER_VERSION=$version" >> "$GITHUB_ENV"
 
       - name: Run desktop scenarios
         id: desktop
@@ -92,4 +105,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Mark workflow failed when E2E tests fail
-        run: exit 1
+        run: |
+          echo "E2E tests failed — see the report."
+          exit 1
